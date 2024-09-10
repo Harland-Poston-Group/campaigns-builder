@@ -1,0 +1,61 @@
+<form name="add-blog-post-form" id="campaign-form" method="post" action="/store-form">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <div id="Around-The-World" phpb-blocks-container>
+        <!-- code -->
+        <lottie-player src="/Around-The-World.json" background="transparent" speed="1" style="width: 236px; height: 142px;" loop autoplay></lottie-player>
+    </div>
+    <h2 class="form-title text-center">Title</h2>
+    <h4 class="form-subtitle text-center">Sub title</h4>
+    <div class="form-group row">
+        <div class="col-6">
+            <input type="text" id="firstname" name="firstname" class="form-control" required placeholder="First Name *">
+        </div>
+        <div class="col-6">
+            <input type="text" id="lastname" name="lastname" class="form-control" required placeholder="Last Name *">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-12">
+            <input type="email" id="email" name="email" class="form-control" required placeholder="Email Address *">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-12">
+            <input type="tel" id="phone" name="phone" class="form-control" placeholder="Phone Number">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-12">
+            <select id="enquiry_subject" name="enquiry_subject" class="form-control minimal">
+                <option value="0">What are you looking for?</option>
+                <option value="Portugal Golden Visa">Portugal Golden Visa</option>
+                <option value="Portugal D2 Visa">Portugal D2 Visa</option>
+                <option value="Work Visa">Work Visa</option>
+                <option value="Retirement">Retirement</option>
+                <option value="Investment Opportunities">Investment Opportunities</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row mb-2">
+        <div class="col-12">
+            <textarea id="description" name="description" class="form-control" placeholder="Leave us a message..."></textarea>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-12 px-3">
+            <div class="desctext">
+                Please note that Portugal Homes will use the above details to contact you only. By submitting this form, you confirm that you agree to our website terms of use, our privacy policy and consent to cookies being stored on your computer.
+            </div>
+        </div>
+        <!-- <div class="col-12 col-md-7">
+            <div class="form-group keep-updated">
+                <input type="checkbox" id="keepupdated" name="keepupdated" value="keepupdated">
+                <label for="keepupdated">Keep me updated on Harland and Poston Group news, events and offers.</label>
+            </div>
+        </div> -->
+        <div class="col-12 col-md-12 text-end">
+            <button id="form-bt" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.row {
+    padding: 0;
+}
+.header-video {
+    position: absolute;
+    height: 640px;
+    left: 0;
+    right: 0;
+    object-fit: cover;
+}
