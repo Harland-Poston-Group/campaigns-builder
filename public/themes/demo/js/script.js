@@ -313,7 +313,7 @@ $("#campaign-form").on("submit", function(e){
 
     e.preventDefault();
 
-    var this_form = $(this).serialize();
+    var this_form = jQuery(this).serialize();
 
     $.ajax({
         url: "/form-submission.php",
