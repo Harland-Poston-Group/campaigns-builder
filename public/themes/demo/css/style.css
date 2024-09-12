@@ -1378,8 +1378,12 @@ body.mobile .navbar-toggler {
         left: -10px;
         right: 0;
     }
+    #campaign-form, #add-blog-post-form {
+        height: 465px;
+    }
 
-    #mask-container {
+
+        #mask-container {
         height: 200px;
         position: absolute;
         z-index: 9;
