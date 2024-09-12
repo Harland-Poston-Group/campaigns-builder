@@ -1483,9 +1483,11 @@ body.mobile .navbar-toggler {
     .carousel-control-prev, .carousel-control-next, .carousel-indicators {
         display: none;
     }
+    .map-block p {
+        padding: 0 20px;
+    }
 
-
-}
+    }
 
 @media (max-width: 767px) {
     .carousel-inner .carousel-item > div {
