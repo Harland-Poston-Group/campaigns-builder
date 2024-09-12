@@ -5,11 +5,11 @@
 
 
 // Configuration
-$apiUrl = env('DYNAMICS_API_URL'); // Replace with your API URL
-$tokenUrl = env('DYNAMICS_TOKEN_URL'); // Replace with your token URL
-$clientId = env('DYNAMICS_CLIENT_ID'); // Replace with your client ID
-$clientSecret = env('DYNAMICS_CLIENT_SECRET'); // Replace with your client secret
-$resource = env('DYNAMICS_RESOURCE'); // Replace with your resource URL
+$apiUrl = getenv('DYNAMICS_API_URL'); // Replace with your API URL
+$tokenUrl = getenv('DYNAMICS_TOKEN_URL'); // Replace with your token URL
+$clientId = getenv('DYNAMICS_CLIENT_ID'); // Replace with your client ID
+$clientSecret = getenv('DYNAMICS_CLIENT_SECRET'); // Replace with your client secret
+$resource = getenv('DYNAMICS_RESOURCE'); // Replace with your resource URL
 $petname = $_POST['petname'];
 
 echo $apiUrl;
