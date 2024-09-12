@@ -1325,7 +1325,16 @@ body.mobile .navbar-toggler {
     font-size: 18px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
+@media (max-width: 390px) {
+    #campaign-form {
+        position: relative !important;
+        background-size: 100% 100%;
+        max-width: 385px !important;
+        left: 0;
+        right: 0;
+    }
 
+}
 @media (max-width: 480px){
 
     html, body {
@@ -1373,7 +1382,7 @@ body.mobile .navbar-toggler {
     #campaign-form {
         position: relative !important;
         background-size: 100% 100%;
-        max-width: 400px;
+        max-width: 100%;
         left: 0;
         right: 0;
     }
