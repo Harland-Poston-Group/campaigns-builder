@@ -15,7 +15,58 @@ jQuery.ajaxSetup({
         'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
     }
 });
+document.addEventListener('DOMContentLoaded', function() {
+    // Capture referrer and location data
+    let referrer = document.referrer;
 
+    let locationData = {};
+
+    fetch('http://ip-api.com/json/')
+        .then(response => response.json())
+        .then(data => {
+            locationData.country = data.country;
+            locationData.city = data.city;
+            locationData.region = data.regionName;
+            locationData.timezone = data.timezone;
+            locationData.query = data.query;
+            // Attach form submit event after location data is available
+            document.getElementById('campaign-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(this);
+
+                // Append referrer and location data to the formData
+                formData.append('referrer', referrer);
+                formData.append('country', locationData.country);
+                formData.append('city', locationData.city);
+                formData.append('region', locationData.region);
+                formData.append('timezone', locationData.timezone);
+                formData.append('IP', locationData.query);
+
+                fetch('send-email.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        // Show Toastify toast message
+                        Toastify({
+                            text: data,
+                            duration: 5000, // 5 seconds
+                            gravity: "top", // top or bottom
+                            position: "center", // left, center, or right
+                            backgroundColor: "#6A257A", // customize color
+                        }).showToast();
+                        // Reset the form after successful submission
+                        this.reset();
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        })
+        .catch(err => console.error('Error getting location data:', err));
+});
+
+
+/*
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('campaign-form').addEventListener('submit', function(event) {
         event.preventDefault();
@@ -61,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(err => console.error(err));
 });
-
+*/
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -253,6 +304,14 @@ jQuery('<div class="toast-container p-3 top-50 start-70 translate-middle" id="to
         }
     });
 
+});
+
+document.getElementById('campaign-form').addEventListener('submit', function(e) {
+    const petname = document.getElementById('petname').value;
+    if (petname !== '') {
+        e.preventDefault(); // Prevent form submission
+        alert('Spam detected.');
+    }
 });
 /*
 const swiper = new Swiper('.swiper-container', {
