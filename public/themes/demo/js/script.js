@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let locationData = {};
 
+    /*
     fetch('http://ip-api.com/json/')
         .then(response => response.json())
         .then(data => {
@@ -63,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         })
         .catch(err => console.error('Error getting location data:', err));
+    */
 });
 
 
@@ -306,12 +308,17 @@ jQuery('<div class="toast-container p-3 top-50 start-70 translate-middle" id="to
 
 });
 
+// Form submission
 document.getElementById('campaign-form').addEventListener('submit', function(e) {
-    const petname = document.getElementById('petname').value;
-    if (petname !== '') {
-        e.preventDefault(); // Prevent form submission
-        alert('Spam detected.');
-    }
+
+
+
+});
+
+$("#campaign-form").on("submit", function(){
+
+    alert('test');
+
 });
 /*
 const swiper = new Swiper('.swiper-container', {
