@@ -2,10 +2,7 @@
 
 // File to handle the form submission and create the lead within Dynamics
 
-echo '<pre>';
-print_r($_POST);
-echo '</pre>';
-die('hey');
+
 
 // Configuration
 $apiUrl = env('DYNAMICS_API_URL'); // Replace with your API URL
@@ -14,6 +11,14 @@ $clientId = env('DYNAMICS_CLIENT_ID'); // Replace with your client ID
 $clientSecret = env('DYNAMICS_CLIENT_SECRET'); // Replace with your client secret
 $resource = env('DYNAMICS_RESOURCE'); // Replace with your resource URL
 $petname = $_POST['petname'];
+
+echo $apiUrl;
+echo $tokenUrl;
+echo $clientId;
+echo $clientSecret;
+echo $resource;
+
+die('hey');
 
 // Collect form data
 $data = [
