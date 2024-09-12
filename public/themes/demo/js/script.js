@@ -314,6 +314,7 @@ $("#campaign-form").on("submit", function(e){
     e.preventDefault();
 
     var this_form = jQuery(this).serialize();
+    var this_form_element = jQuery(this);
 
     jQuery.ajax({
         url: "/form-submission.php",
@@ -323,26 +324,39 @@ $("#campaign-form").on("submit", function(e){
         // },
         data: this_form,
         success:function(response){
-        if (response){
-            //   $('#success-message').text(response.success).css({"color":"green"});
+            if (response){
+                //   $('#success-message').text(response.success).css({"color":"green"});
 
-            // Notify(response.success, null, null, 'success');
+                // Notify(response.success, null, null, 'success');
 
-            // // Clean form
-            // $("#get-in-touch-with-us-form")[0].reset();
-            // grecaptcha.reset(); // Reset the reCAPTCHA widget
+                // // Clean form
+                // $("#get-in-touch-with-us-form")[0].reset();
+                // grecaptcha.reset(); // Reset the reCAPTCHA widget
 
-            console.log('success: ' + response);
+                console.log('success: ' + response);
 
-        }else{
-            // $('#success-message').text(response.error).css({"color":"red"});
+                Toastify({
+                    text: 'Thank you for your enquiry. We\'ll be in contact, shortly',
+                    duration: 5000, // 5 seconds
+                    gravity: "top", // top or bottom
+                    position: "center", // left, center, or right
+                    backgroundColor: "#6A257A", // customize color
+                }).showToast();
+                // Reset the form after successful submission
+                this_form_element.reset();
 
-            // Notify(response.error, null, null, 'error');
-            // enquire_button.attr('disabled', false);
-            // grecaptcha.reset(); // Reset the reCAPTCHA widget
-            console.log('error: ' + response);
+            }else{
+                // $('#success-message').text(response.error).css({"color":"red"});
 
-        }
+                // Notify(response.error, null, null, 'error');
+                // enquire_button.attr('disabled', false);
+                // grecaptcha.reset(); // Reset the reCAPTCHA widget
+                console.log('error: ' + response);
+
+            }
+        },
+        error: function error(xhr, status, errorMessage) {
+            console.log("RESPONSE: , error: " + errorMessage);
         }
     });
 
