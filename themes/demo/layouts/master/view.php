@@ -23,8 +23,55 @@ ini_set('display_errors', 1);
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
+
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "jfky1xya3k");
+    </script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '163126273522999');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=163126273522999&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <!-- Meta Pixel Code --> <script> !function(f,b,e,v,n,t,s) {if(f.fbq)return;n=f.fbq=function(){n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)}; if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0'; n.queue=[];t=b.createElement(e);t.async=!0; t.src=v;s=b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t,s)}(window, document,'script', ' https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '678459207652433'); fbq('track', 'PageView'); </script> <noscript><img height="1" width="1" style="display:none" src=" https://www.facebook.com/tr?id=678459207652433&ev=PageView&noscript=1" /></noscript> <!-- End Meta Pixel Code -->
+
+    <!-- Twitter conversion tracking base code --> <script> !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments); },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js' , a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script'); twq('config','ogkqf'); </script> <!-- End Twitter conversion tracking base code -->
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-N5WRRKQX');</script>
+    <!-- End Google Tag Manager -->
+
+
 </head>
 <body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="
+https://www.googletagmanager.com/ns.html?id=GTM-N5WRRKQX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 <div class="container-fluid">
     <div class="row">
         <div class="mx-0 ">
@@ -39,6 +86,60 @@ ini_set('display_errors', 1);
 <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js'></script>
 <script src="<?= phpb_theme_asset('js/script.js') ?>"></script>
 <button id="scrollToTopBtn" title="Go to top"><img src="/images/GoTopArrow.png"></button>
+
+<!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-GYDWX32BH1"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-GYDWX32BH1'); </script>
+
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/143154105.js"></script>
+<!-- End of HubSpot Embed Code -->
+
+<script>
+
+    function getParam(p) {
+    var match = RegExp('[?&]' + p + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    }
+
+    function getExpiryRecord(value) {
+    var expiryPeriod = 90 * 24 * 60 * 60 * 1000; // 90 day expiry in milliseconds
+
+    var expiryDate = new Date().getTime() + expiryPeriod;
+    return {
+    value: value,
+    expiryDate: expiryDate
+    };
+    }
+
+    function addGclid() {
+    var gclidParam = getParam('gclid');
+    var gclidFormFields = ['gclid_field', 'foobar']; // all possible gclid form field ids here
+    var gclidRecord = null;
+    var currGclidFormField;
+
+    var gclsrcParam = getParam('gclsrc');
+    var isGclsrcValid = !gclsrcParam || gclsrcParam.indexOf('aw') !== -1;
+
+    gclidFormFields.forEach(function (field) {
+    if (document.getElementById(field)) {
+    currGclidFormField = document.getElementById(field);
+    }
+    });
+
+    if (gclidParam && isGclsrcValid) {
+    gclidRecord = getExpiryRecord(gclidParam);
+    localStorage.setItem('gclid', JSON.stringify(gclidRecord));
+    }
+
+    var gclid = gclidRecord || JSON.parse(localStorage.getItem('gclid'));
+    var isGclidValid = gclid && new Date().getTime() < gclid.expiryDate;
+
+    if (currGclidFormField && isGclidValid) {
+    currGclidFormField.value = gclid.value;
+    }
+    }
+    window.addEventListener('load', addGclid);
+</script>
+
 </body>
 </html>
 <script>
