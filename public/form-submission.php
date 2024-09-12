@@ -2,6 +2,20 @@
 
 // File to handle the form submission and create the lead within Dynamics
 
+// Include Composer's autoload file
+require '../vendor/autoload.php';
+
+// Include Laravel's application bootstrap file
+// require '../bootstrap/app.php';
+
+// Create the Laravel application instance
+$app = require_once '../bootstrap/app.php';
+
+// Initialize Laravel's Kernel
+$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
+$response = $kernel->handle(
+    $request = Illuminate\Http\Request::capture()
+);
 
 
 // Configuration
@@ -10,13 +24,25 @@ $tokenUrl = getenv('DYNAMICS_TOKEN_URL'); // Replace with your token URL
 $clientId = getenv('DYNAMICS_CLIENT_ID'); // Replace with your client ID
 $clientSecret = getenv('DYNAMICS_CLIENT_SECRET'); // Replace with your client secret
 $resource = getenv('DYNAMICS_RESOURCE'); // Replace with your resource URL
-$petname = $_POST['petname'];
 
-echo '<pre>';
-print_r($_SERVER);
-echo '</pre>';
+if( isset($_POST['petname']) && !empty($_POST['petname']) ){
+    $petname = $_POST['petname'];
+}
 
-die('hey');
+
+// echo '<pre>';
+// print_r($apiUrl);
+// echo '<br>';
+// print_r($tokenUrl);
+// echo '<br>';
+// print_r($clientId);
+// echo '<br>';
+// print_r($clientSecret);
+// echo '<br>';
+// print_r($resource);
+// echo '</pre>';
+
+// die('hey');
 
 // Collect form data
 $data = [
@@ -104,20 +130,30 @@ function sendToDynamics365($apiUrl, $accessToken, $contactData) {
 }
 
 // Main logic
-if( !empty($petname) ){
+if( !isset($petname) ){
 
-    try {
-        $accessToken = getAccessToken($tokenUrl, $clientId, $clientSecret, $resource);
-        sendToDynamics365($apiUrl, $accessToken, $contactData);
-        echo "Data successfully sent to Dynamics 365.";
-    } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
+    if( $data['enquiry_subject'] !== 'Work Visa' ){
+
+        try {
+            $accessToken = getAccessToken($tokenUrl, $clientId, $clientSecret, $resource);
+            sendToDynamics365($apiUrl, $accessToken, $contactData);
+            echo "Data successfully sent to Dynamics 365.";
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
+
+    }else{
+
+        print_r('Work Visa Submission attempt');
     }
 
 }else{
 
     // Do nothing as it's a BOT submission
+    print_r('illegitimate submission');
 }
 
+// Clean up the request handling
+$kernel->terminate($request, $response);
 
 ?>
