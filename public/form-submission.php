@@ -3,7 +3,7 @@
 // File to handle the form submission and create the lead within Dynamics
 
 echo '<pre>';
-print_r($data);
+print_r($_POST['data']);
 echo '</pre>';
 die('hey');
 
