@@ -1018,7 +1018,7 @@ body.page-residency-and-citizenship .flip-card-back {
 #why-move-section .img-right {
     width: 430px;
     position: relative;
-    right: 30%;
+    right: 10%;
 }
 #why-move-section .title-bottom {
     top: 0 !important;
@@ -1060,10 +1060,10 @@ body.page-residency-and-citizenship .flip-card-back {
     position: fixed;
     z-index: 4;
     right: 0;
-    left: 95%;
     top: 10%;
     max-width: 95px;
-    border-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
     box-shadow: -1px 3px 10px #333;
 }
 
@@ -1078,7 +1078,6 @@ body.page-residency-and-citizenship .flip-card-back {
     left: 0;
     right: 0;
     bottom: 0;
-    border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
     text-align: center;
     line-height: normal;
