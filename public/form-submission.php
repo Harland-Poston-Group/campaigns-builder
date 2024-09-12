@@ -132,17 +132,25 @@ function sendToDynamics365($apiUrl, $accessToken, $contactData) {
 // Main logic
 if( !isset($petname) ){
 
-    try {
-        $accessToken = getAccessToken($tokenUrl, $clientId, $clientSecret, $resource);
-        sendToDynamics365($apiUrl, $accessToken, $contactData);
-        echo "Data successfully sent to Dynamics 365.";
-    } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
+    if( $data['enquiry_subject'] !== 'Work Visa' ){
+
+        try {
+            $accessToken = getAccessToken($tokenUrl, $clientId, $clientSecret, $resource);
+            sendToDynamics365($apiUrl, $accessToken, $contactData);
+            echo "Data successfully sent to Dynamics 365.";
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
+
+    }else{
+
+        print_r('Work Visa Submission attempt');
     }
 
 }else{
 
     // Do nothing as it's a BOT submission
+    print_r('illegitimate submission');
 }
 
 // Clean up the request handling
