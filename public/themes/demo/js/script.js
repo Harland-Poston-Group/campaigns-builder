@@ -309,7 +309,9 @@ jQuery('<div class="toast-container p-3 top-50 start-70 translate-middle" id="to
 });
 
 // Form submission
-$("#campaign-form").on("submit", function(){
+$("#campaign-form").on("submit", function(e){
+
+    e.preventDefault();
 
     var this_form = $(this).serialize();
 
