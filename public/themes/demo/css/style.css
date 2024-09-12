@@ -1361,6 +1361,12 @@ body.mobile .navbar-toggler {
     body.mobile #top-menu .navbar-nav a.nav-link {
         color: #6A257A;
     }
+
+    .navbar-brand img {
+        max-width: 250px;
+    }
+
+
     body.mobile .navbar-toggler {
         border: 0 !important;
         float: right;
