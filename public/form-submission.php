@@ -2,8 +2,10 @@
 
 // File to handle the form submission and create the lead within Dynamics
 
-dump($data);
-dd('hello');
+echo '<pre>';
+print_r($data);
+echo '</pre>';
+die('hey');
 
 // Configuration
 $apiUrl = env('DYNAMICS_API_URL'); // Replace with your API URL
