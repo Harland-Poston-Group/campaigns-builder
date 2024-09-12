@@ -315,7 +315,7 @@ $("#campaign-form").on("submit", function(e){
 
     var this_form = jQuery(this).serialize();
 
-    $.ajax({
+    jQuery.ajax({
         url: "/form-submission.php",
         type: "POST",
         // headers: {
