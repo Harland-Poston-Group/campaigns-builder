@@ -12,11 +12,9 @@ $clientSecret = getenv('DYNAMICS_CLIENT_SECRET'); // Replace with your client se
 $resource = getenv('DYNAMICS_RESOURCE'); // Replace with your resource URL
 $petname = $_POST['petname'];
 
-echo $apiUrl;
-echo $tokenUrl;
-echo $clientId;
-echo $clientSecret;
-echo $resource;
+echo '<pre>';
+print_r($_ENV);
+echo '</pre>';
 
 die('hey');
 
