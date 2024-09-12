@@ -13,7 +13,7 @@ $resource = getenv('DYNAMICS_RESOURCE'); // Replace with your resource URL
 $petname = $_POST['petname'];
 
 echo '<pre>';
-print_r($_ENV);
+print_r($_SERVER);
 echo '</pre>';
 
 die('hey');
