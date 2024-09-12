@@ -35,6 +35,10 @@ html{
 
 }
 
+.navbar-brand img {
+    max-width: 250px;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -1362,12 +1366,7 @@ body.mobile .navbar-toggler {
         color: #6A257A;
     }
 
-    .navbar-brand img {
-        max-width: 250px;
-    }
-
-
-    body.mobile .navbar-toggler {
+       body.mobile .navbar-toggler {
         border: 0 !important;
         float: right;
         z-index: 99999;
