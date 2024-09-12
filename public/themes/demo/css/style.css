@@ -1400,7 +1400,7 @@ body.mobile .navbar-toggler {
     }
 
     img.header-mask {
-        bottom: 0 !important;
+        bottom: -3px !important;
     }
     .video-container {
         display: block !important;
