@@ -309,15 +309,40 @@ jQuery('<div class="toast-container p-3 top-50 start-70 translate-middle" id="to
 });
 
 // Form submission
-document.getElementById('campaign-form').addEventListener('submit', function(e) {
-
-
-
-});
-
 $("#campaign-form").on("submit", function(){
 
-    alert('test');
+    var this_form = $(this).serialize();
+
+    $.ajax({
+        url: "/form-submission.php",
+        type: "POST",
+        // headers: {
+        //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        // },
+        data: this_form,
+        success:function(response){
+        if (response){
+            //   $('#success-message').text(response.success).css({"color":"green"});
+
+            // Notify(response.success, null, null, 'success');
+
+            // // Clean form
+            // $("#get-in-touch-with-us-form")[0].reset();
+            // grecaptcha.reset(); // Reset the reCAPTCHA widget
+
+            console.log('success: ' + response);
+
+        }else{
+            // $('#success-message').text(response.error).css({"color":"red"});
+
+            // Notify(response.error, null, null, 'error');
+            // enquire_button.attr('disabled', false);
+            // grecaptcha.reset(); // Reset the reCAPTCHA widget
+            console.log('error: ' + response);
+
+        }
+        }
+    });
 
 });
 /*
