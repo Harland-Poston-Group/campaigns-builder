@@ -1375,7 +1375,7 @@ body.mobile .navbar-toggler {
         position: relative !important;
         background-size: 100% 100%;
         max-width: 400px;
-        left: -25px;
+        left: -10px;
         right: 0;
     }
 
