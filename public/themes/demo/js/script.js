@@ -392,6 +392,8 @@ $("#campaign-form").on("submit", function(e){
             submitButton.html('Submit');
             submitButton.prop('disabled', false);
             this_form_element[0].reset();
+            // Redirect the user to the /thankyou page after completion
+            window.location.href = "/thank-you";
         }
     });
 
