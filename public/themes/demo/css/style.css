@@ -1620,20 +1620,23 @@ body.mobile .navbar-toggler {
     }
 
     .thank-you-title {
-        margin-left: 3rem;
+        margin-left: unset;
         padding-top: 10rem;
         color: #fff;
         font-size: 2.5rem;
         float: none;
-
+        padding-left: 15px;
+        padding-right: 15px;
     }
     .thank-you-desc {
         padding-bottom: 60px;
         text-align: center;
         color: #fff;
-        margin-left: 2rem;
+        margin-left: unset;
         font-size: 22px;
         line-height: 38px;
+        padding-left: 15px;
+        padding-right: 15px;
     }
     .thank-you-desc br {
         display: none;
@@ -1641,5 +1644,19 @@ body.mobile .navbar-toggler {
     #thank-you-header  #campaign-form {
         position:absolute;
         top: 0;
+    }
+
+    #thank-you-menu{
+        text-align: center;
+        justify-content: center;
+    }
+
+    #thank-you-menu .row{
+        gap: 30px;
+    }
+
+    #thank-you-menu .social-icons-column-wrapper{
+        flex-direction: column;
+        gap: 10px;
     }
 }
