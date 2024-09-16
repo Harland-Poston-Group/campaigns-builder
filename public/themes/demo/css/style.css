@@ -1565,6 +1565,18 @@ body.mobile .navbar-toggler {
     font-size: 2rem;
     line-height: 3rem;
 }
+
+#thank-you-menu{
+    display: flex;
+    align-items: center;
+    color: #6A257A;
+    font-weight: 600;
+}
+
+#thank-you-menu .visit-website{
+    font-weight: 700;
+}
+
 #campaign-form.thank-you-form {
     position:absolute;
     top: 10rem;
