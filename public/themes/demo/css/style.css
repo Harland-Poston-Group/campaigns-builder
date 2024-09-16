@@ -1649,6 +1649,7 @@ body.mobile .navbar-toggler {
     #thank-you-menu{
         text-align: center;
         justify-content: center;
+        margin-bottom: 20px;
     }
 
     #thank-you-menu .row{
