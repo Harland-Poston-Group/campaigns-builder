@@ -16,6 +16,13 @@ jQuery(document).ready(function() {
 
     jQuery('#campaign-form.thank-you-form').insertBefore('#footer-thank-you').addClass('col-12');
 
+    jQuery('.address-block').html(function(_, html) {
+        // Replace "Terms & Conditions | Privacy Policy" with linked text
+        return html.replace('Terms & Conditions | Privacy Policy',
+            '<a href="https://www.investmentvisa.com/privacy-policy" target="_blank">Terms & Conditions</a> | <a href="https://www.investmentvisa.com/privacy-policy" target="_blank">Privacy Policy</a>'
+        );
+    });
+
 
 });
 
