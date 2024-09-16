@@ -1539,3 +1539,70 @@ body.mobile .navbar-toggler {
 .carousel-inner .carousel-item-start {
     transform: translateX(0);
 }
+/* Thank you page */
+
+#thank-you-header {
+    background: url("/images/BackgHeaderTY.png") bottom;
+}
+#thank-you-header .logo {
+    position: relative;
+    top: 60px;
+    right: 180px;
+}
+
+.thank-you-title {
+    margin-left: 6rem;
+    padding-top: 5rem;
+    color: #fff;
+    font-size: 4rem;
+    float: left;
+}
+.thank-you-desc {
+    clear: both;
+    padding-bottom:8rem;
+    color: #fff;
+    margin-left: 6rem;
+    font-size: 2rem;
+    line-height: 3rem;
+}
+#campaign-form.thank-you-form {
+    position:absolute;
+    top: 10rem;
+}
+.footer-exit-image {
+    width: 100%;
+}
+@media (max-width: 480px){
+    #thank-you-header {
+        background: url("/images/BackgHeaderTY.png") bottom;
+        background-repeat: no-repeat;
+    }
+    #thank-you-header .logo {
+        top: -200px;
+        right: 20px;
+    }
+
+    .thank-you-title {
+        margin-left: 3rem;
+        padding-top: 10rem;
+        color: #fff;
+        font-size: 2.5rem;
+        float: none;
+
+    }
+    .thank-you-desc {
+        padding-bottom: 60px;
+        text-align: center;
+        color: #fff;
+        margin-left: 2rem;
+        font-size: 22px;
+        line-height: 38px;
+    }
+    .thank-you-desc br {
+        display: none;
+    }
+    #campaign-form.thank-you-form {
+        position:absolute;
+        top: 0rem;
+    }
+}
