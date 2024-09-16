@@ -1588,8 +1588,9 @@ body.mobile .navbar-toggler {
 }
 
 #thank-you-menu .social-icons-column-wrapper{
-    display: grid;
+    /* display: grid; */
     grid-template-columns: auto 1fr;
+    display: flex;
     align-items: center;
 }
 
