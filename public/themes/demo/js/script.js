@@ -8,6 +8,15 @@ jQuery(document).ready(function() {
         // Set a new title for the page
         document.title = "Investment Visa US Campaign";
     }
+
+    if (currentUrl.indexOf("/thankyou") !== -1) {
+        // Set a new title for the page
+        document.title = "Before you leave...";
+    }
+
+    jQuery('#campaign-form.thank-you-form').insertBefore('#footer-thank-you').addClass('col-12');
+
+
 });
 
 jQuery.ajaxSetup({
