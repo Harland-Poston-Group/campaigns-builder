@@ -1587,6 +1587,12 @@ body.mobile .navbar-toggler {
     margin: 0 8px;
 }
 
+#thank-you-menu .social-icons-column-wrapper{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+}
+
 #campaign-form.thank-you-form {
     position:absolute;
     top: 10rem;
