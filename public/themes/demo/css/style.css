@@ -1572,6 +1572,13 @@ body.mobile .navbar-toggler {
 .footer-exit-image {
     width: 100%;
 }
+
+#thank-you-header  #campaign-form {
+        position:absolute;
+        top: 10rem;
+
+}
+
 @media (max-width: 480px){
     #thank-you-header {
         background: url("/images/BackgHeaderTY.png") bottom;
@@ -1601,8 +1608,8 @@ body.mobile .navbar-toggler {
     .thank-you-desc br {
         display: none;
     }
-    #campaign-form.thank-you-form {
+    #thank-you-header  #campaign-form {
         position:absolute;
-        top: 0rem;
+        top: 0;
     }
 }
