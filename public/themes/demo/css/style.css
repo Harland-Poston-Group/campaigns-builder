@@ -1567,14 +1567,24 @@ body.mobile .navbar-toggler {
 }
 
 #thank-you-menu{
-    display: flex;
-    align-items: center;
     color: #6A257A;
     font-weight: 600;
 }
 
 #thank-you-menu .visit-website{
     font-weight: 700;
+}
+
+#thank-you-menu .row{
+    width: 100%;
+    align-items: center;
+}
+
+#thank-you-menu .social-icons img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    margin: 0 8px;
 }
 
 #campaign-form.thank-you-form {
