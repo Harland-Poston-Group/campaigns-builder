@@ -132,7 +132,7 @@ function sendToDynamics365($apiUrl, $accessToken, $contactData) {
 // Main logic
 if( !isset($petname) ){
 
-    if( $data['enquiry_subject'] !== 'Work Visa' ){
+    if( $data['enquiry_subject'] !== 'Work Visa' && $data['enquiry_subject'] !== '0' ){
 
         try {
             $accessToken = getAccessToken($tokenUrl, $clientId, $clientSecret, $resource);
