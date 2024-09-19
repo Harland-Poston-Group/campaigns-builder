@@ -61,8 +61,14 @@ $contactData = [
     "emailaddress1" => $data['email'],
     "telephone1" => $data['phone_number'],
     "ans_whatareyoulookingfortext"  => $data['enquiry_subject'],
-    "ans_message" => $data['message'],
+    // "ans_message" => $data['message'],
 ];
+
+// Avoid sending message if it's empty - on duplicate entries, this will delete the previous message submission
+// and we do not want this as we'll lose data
+if( !empty( $data['message'] ) ){
+    $contactData["ans_message"] = $data['message'];
+}
 
 // Function to get access token
 function getAccessToken($tokenUrl, $clientId, $clientSecret, $resource) {
