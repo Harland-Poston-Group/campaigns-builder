@@ -26,6 +26,33 @@ jQuery(document).ready(function() {
 
 });
 
+    jQuery(document).ready(function() {
+
+        var blacklist = ["unsubscribe in marketing emails","language settings","unable to access my account","sponsor visa", "tourist visa", "work visa","fuck","shit"]; // Add your blacklisted words or sentences
+
+        jQuery('#message').on('input', function() {
+            var content = jQuery(this).val();
+            var foundBlacklisted = false;
+
+            // Check if any blacklisted word/sentence exists
+            jQuery.each(blacklist, function(index, word) {
+                var regex = new RegExp('\\b' + word + '\\b', 'gi'); // Create regex for each blacklisted word
+                if (regex.test(content)) {
+                    foundBlacklisted = true;
+                    alert("The word or sentence '" + word + "' is not allowed.");
+                    // Remove the word/sentence from the content
+                    content = content.replace(regex, '');
+                }
+            });
+
+            // Update the textarea with the filtered content
+            if (foundBlacklisted) {
+                jQuery('#message').val(content); // Update if a blacklisted word was found
+            }
+        });
+    });
+
+
 jQuery.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
@@ -325,7 +352,7 @@ jQuery('<div class="toast-container p-3 top-50 start-70 translate-middle" id="to
 });
 
 // Form submission
-$("#campaign-form").on("submit", function(e){
+jQuery("#campaign-form").on("submit", function(e){
 
     e.preventDefault();
 
@@ -348,17 +375,17 @@ $("#campaign-form").on("submit", function(e){
         url: "/form-submission.php",
         type: "POST",
         // headers: {
-        //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
         // },
         data: this_form,
         success:function(response){
             if (response){
-                //   $('#success-message').text(response.success).css({"color":"green"});
+                //   jQuery('#success-message').text(response.success).css({"color":"green"});
 
                 // Notify(response.success, null, null, 'success');
 
                 // // Clean form
-                // $("#get-in-touch-with-us-form")[0].reset();
+                // jQuery("#get-in-touch-with-us-form")[0].reset();
                 // grecaptcha.reset(); // Reset the reCAPTCHA widget
 
                 console.log('success: ' + response);
@@ -375,7 +402,7 @@ $("#campaign-form").on("submit", function(e){
                 // this_form_element.reset();
 
             }else{
-                // $('#success-message').text(response.error).css({"color":"red"});
+                // jQuery('#success-message').text(response.error).css({"color":"red"});
 
                 // Notify(response.error, null, null, 'error');
                 // enquire_button.attr('disabled', false);
