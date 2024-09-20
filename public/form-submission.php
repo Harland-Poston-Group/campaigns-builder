@@ -201,7 +201,7 @@ function updateExistingLead($apiUrl, $accessToken, $leadId, $contactData) {
 }
 
 // Main logic
-if( !isset($petname) || !empty($_POST['first_name']) || !empty($_POST['last_name']) || !empty($_POST['email']) || !empty($_POST['phone_number']) ){
+if( !isset($petname) && !empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['email']) && !empty($_POST['phone_number']) ){
 
 
     if( $data['enquiry_subject'] !== 'Work Visa' && $data['enquiry_subject'] !== '0' ){
