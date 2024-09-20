@@ -44,14 +44,70 @@ if( isset($_POST['petname']) && !empty($_POST['petname']) ){
 
 // die('hey');
 
+if( isset($_POST['first_name']) && !empty($_POST['first_name']) ){
+
+    $first_name = $_POST['first_name'];
+
+}elseif ( isset($_POST['firstname']) && !empty($_POST['firstname']) ) {
+
+    $first_name = $_POST['firstname'];
+
+}else{
+
+    $first_name = '';
+
+}
+
+if( isset($_POST['last_name']) && !empty($_POST['last_name']) ){
+
+    $last_name = $_POST['last_name'];
+
+}elseif ( isset($_POST['lastname']) && !empty($_POST['lastname']) ) {
+
+    $last_name = $_POST['lastname'];
+
+}else{
+
+    $last_name = '';
+
+}
+
+if( isset($_POST['phone_number']) && !empty($_POST['phone_number']) ){
+
+    $phone_number = $_POST['phone_number'];
+
+}elseif ( isset($_POST['phonenumber']) && !empty($_POST['phonenumber']) ) {
+
+    $phone_number = $_POST['phonenumber'];
+
+}else{
+
+    $phone_number = '';
+
+}
+
+if( isset($_POST['message']) && !empty($_POST['message']) ){
+
+    $message = $_POST['message'];
+
+}elseif ( isset($_POST['description']) && !empty($_POST['description']) ) {
+
+    $message = $_POST['description'];
+
+}else{
+
+    $message = '';
+
+}
+
 // Collect form data
 $data = [
-    'first_name' => $_POST['first_name'] ?? 'First name empty',
-    'last_name' => $_POST['last_name'] ?? 'Last name empty',
+    'first_name' => $first_name ?? 'First name empty',
+    'last_name' => $last_name ?? 'Last name empty',
     'email' => $_POST['email'] ?? 'Email empty',
-    'phone_number' => $_POST['phone_number'] ?? 'Phone number empty',
+    'phone_number' => $phone_number ?? 'Phone number empty',
     'enquiry_subject' => $_POST['enquiry_subject'] ?? '',
-    'message' => $_POST['message'] ?? 'Automatically Generated Message | IV Landing Page',
+    'message' => $message ?? 'Automatically Generated Message | IV Landing Page',
 ];
 
 // Prepare data for Dynamics 365
@@ -208,7 +264,7 @@ function updateExistingLead($apiUrl, $accessToken, $leadId, $contactData) {
 }
 
 // Main logic
-if( !isset($petname) && !empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['email']) && !empty($_POST['phone_number']) ){
+if( !isset($petname) && !empty($first_name) && !empty($last_name) && !empty($phone_number) && !empty($message) ){
 
 
     if( $data['enquiry_subject'] !== 'Work Visa' && $data['enquiry_subject'] !== '0' ){
