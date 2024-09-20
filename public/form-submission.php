@@ -312,6 +312,15 @@ if( !isset($petname) && !empty($first_name) && !empty($last_name) && !empty($pho
 
     // Do nothing as it's a BOT submission
     print_r('illegitimate submission');
+    echo '<br>';
+    print_r($first_name);
+    echo '<br>';
+    print_r($last_name);
+    echo '<br>';
+    print_r($phone_number);
+    echo '<br>';
+    print_r($message);
+
 }
 
 // Clean up the request handling
