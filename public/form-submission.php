@@ -51,7 +51,7 @@ $data = [
     'email' => $_POST['email'] ?? 'Email empty',
     'phone_number' => $_POST['phone_number'] ?? 'Phone number empty',
     'enquiry_subject' => $_POST['enquiry_subject'] ?? '',
-    'message' => $_POST['message'] ?? '',
+    'message' => $_POST['message'] ?? 'Automatically Generated Message | IV Landing Page',
 ];
 
 // Prepare data for Dynamics 365
@@ -201,7 +201,7 @@ function updateExistingLead($apiUrl, $accessToken, $leadId, $contactData) {
 }
 
 // Main logic
-if( !isset($petname) || empty($_POST['first_name']) || empty($_POST['last_name']) || empty($_POST['email']) || $_POST['phone_number'] ){
+if( !isset($petname) || !empty($_POST['first_name']) || !empty($_POST['last_name']) || !empty($_POST['email']) || !empty($_POST['phone_number']) ){
 
 
     if( $data['enquiry_subject'] !== 'Work Visa' && $data['enquiry_subject'] !== '0' ){
