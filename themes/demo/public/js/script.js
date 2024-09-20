@@ -8,6 +8,13 @@ jQuery(document).ready(function() {
         // Set a new title for the page
         document.title = "Investment Visa US Campaign";
     }
+    if (currentUrl.indexOf("/thankyou") !== -1) {
+        // Set a new title for the page
+        document.title = "Before you leave...";
+    }
+
+    jQuery('#campaign-form.thank-you-form').insertBefore('#footer-thank-you').addClass('col-12');
+
 });
 
 jQuery.ajaxSetup({
@@ -16,6 +23,31 @@ jQuery.ajaxSetup({
     }
 });
 
+jQuery(document).ready(function() {
+
+    var blacklist = ["unsubscribe in marketing emails","language settings","unable to access my account","sponsor visa", "tourist visa", "work visa","fuck","shit"]; // Add your blacklisted words or sentences
+
+    jQuery('#message').on('input', function() {
+        var content = jQuery(this).val();
+        var foundBlacklisted = false;
+
+        // Check if any blacklisted word/sentence exists
+        jQuery.each(blacklist, function(index, word) {
+            var regex = new RegExp('\\b' + word + '\\b', 'gi'); // Create regex for each blacklisted word
+            if (regex.test(content)) {
+                foundBlacklisted = true;
+                alert("The word or sentence '" + word + "' is not allowed.");
+                // Remove the word/sentence from the content
+                content = content.replace(regex, '');
+            }
+        });
+
+        // Update the textarea with the filtered content
+        if (foundBlacklisted) {
+            jQuery('#message').val(content); // Update if a blacklisted word was found
+        }
+    });
+});
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('campaign-form').addEventListener('submit', function(event) {
         event.preventDefault();
@@ -252,6 +284,9 @@ jQuery('<div class="toast-container p-3 top-50 start-70 translate-middle" id="to
             jQuery(".error-message").hide().css("display", "none"); // Hide error message element
         }
     });
+
+
+
 
 });
 /*

@@ -25,7 +25,6 @@ jQuery(document).ready(function() {
 
 
 });
-
     jQuery(document).ready(function() {
 
         var blacklist = ["unsubscribe in marketing emails","language settings","unable to access my account","sponsor visa", "tourist visa", "work visa","fuck","shit"]; // Add your blacklisted words or sentences
