@@ -27,7 +27,7 @@ jQuery(document).ready(function() {
 });
     jQuery(document).ready(function() {
 
-        var blacklist = ["unsubscribe in marketing emails","language settings","unable to access my account","sponsor visa", "tourist visa", "work visa","fuck","shit"]; // Add your blacklisted words or sentences
+        var blacklist = ["encountered an error","unsubscribe","marketing emails","language settings","unable to access my account","sponsor visa", "tourist visa", "work visa","fuck","shit"]; // Add your blacklisted words or sentences
 
         jQuery('#description').on('input', function() {
             var content = jQuery(this).val();
@@ -38,7 +38,15 @@ jQuery(document).ready(function() {
                 var regex = new RegExp('\\b' + word + '\\b', 'gi'); // Create regex for each blacklisted word
                 if (regex.test(content)) {
                     foundBlacklisted = true;
-                    alert("The word or sentence '" + word + "' is not allowed.");
+
+                    if(word === 'work visa')
+                    {
+                        alert("You have written Work Visa. Investment Visa does not offer services in regards to Work Visas.");
+                    }
+                    else {
+                        alert("The word or sentence '" + word + "' is not allowed.");
+
+                    }
                     // Remove the word/sentence from the content
                     content = content.replace(regex, '');
                 }
