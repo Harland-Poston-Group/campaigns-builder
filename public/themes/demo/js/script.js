@@ -29,7 +29,7 @@ jQuery(document).ready(function() {
 
         var blacklist = ["unsubscribe in marketing emails","language settings","unable to access my account","sponsor visa", "tourist visa", "work visa","fuck","shit"]; // Add your blacklisted words or sentences
 
-        jQuery('#message').on('input', function() {
+        jQuery('#description').on('input', function() {
             var content = jQuery(this).val();
             var foundBlacklisted = false;
 
@@ -46,7 +46,7 @@ jQuery(document).ready(function() {
 
             // Update the textarea with the filtered content
             if (foundBlacklisted) {
-                jQuery('#message').val(content); // Update if a blacklisted word was found
+                jQuery('#description').val(content); // Update if a blacklisted word was found
             }
         });
     });
