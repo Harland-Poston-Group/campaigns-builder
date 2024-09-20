@@ -76,9 +76,9 @@ if( isset($_POST['phone_number']) && !empty($_POST['phone_number']) ){
 
     $phone_number = $_POST['phone_number'];
 
-}elseif ( isset($_POST['phonenumber']) && !empty($_POST['phonenumber']) ) {
+}elseif ( isset($_POST['phone']) && !empty($_POST['phone']) ) {
 
-    $phone_number = $_POST['phonenumber'];
+    $phone_number = $_POST['phone'];
 
 }else{
 
