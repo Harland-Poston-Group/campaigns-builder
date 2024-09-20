@@ -51,7 +51,7 @@ $data = [
     'email' => $_POST['email'] ?? 'Email empty',
     'phone_number' => $_POST['phone_number'] ?? 'Phone number empty',
     'enquiry_subject' => $_POST['enquiry_subject'] ?? '',
-    'message' => $_POST['message'] ?? '',
+    'message' => $_POST['message'] ?? 'Automatically Generated Message | IV Landing Page',
 ];
 
 // Prepare data for Dynamics 365
@@ -61,8 +61,21 @@ $contactData = [
     "emailaddress1" => $data['email'],
     "telephone1" => $data['phone_number'],
     "ans_whatareyoulookingfortext"  => $data['enquiry_subject'],
-    "ans_message" => $data['message'],
+    // "ans_message" => $data['message'],
 ];
+
+// Avoid sending message if it's empty - on duplicate entries, this will delete the previous message submission
+// and we do not want this as we'll lose data
+if( !empty( $data['message'] ) ){
+    $contactData["ans_message"] = $data['message'];
+}
+
+// Adding a First Page Seen to the request, this is going to be temporary
+if( !empty( $_SERVER['HTTP_REFERER'] ) ){
+
+    $contactData["ans_firstpageseen"] = $_SERVER['HTTP_REFERER'];
+
+}
 
 // Function to get access token
 function getAccessToken($tokenUrl, $clientId, $clientSecret, $resource) {
@@ -129,15 +142,107 @@ function sendToDynamics365($apiUrl, $accessToken, $contactData) {
     return $response;
 }
 
+// Function to check if lead/contact exists in Dynamics 365
+function checkExistingLead($apiUrl, $accessToken, $email) {
+    $http = curl_init();
+
+    // $queryUrl = $apiUrl . "/contacts?" . urlencode("\$filter") . "=emailaddress1 eq '" . urlencode($email) . "'"; // Query to check if contact exists by email
+    $queryUrl = $apiUrl . "?\$filter=emailaddress1%20eq%20'".$email."'";
+
+    curl_setopt($http, CURLOPT_URL, $queryUrl);
+    curl_setopt($http, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($http, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'Authorization: Bearer ' . $accessToken,
+    ]);
+
+    $response = curl_exec($http);
+    $error = curl_error($http);
+    curl_close($http);
+
+    if ($error) {
+        throw new Exception("Curl error: $error");
+    }
+
+    $responseData = json_decode($response, true);
+
+    // If the query returns results, return the first lead's ID
+    if (isset($responseData['value']) && count($responseData['value']) > 0) {
+        return $responseData['value'][0]['leadid']; // Return the 'leadid' (GUID)
+    } else {
+        return false; // No existing lead found
+    }
+}
+
+// Function to update an existing lead/contact in Dynamics 365
+function updateExistingLead($apiUrl, $accessToken, $leadId, $contactData) {
+    $http = curl_init();
+
+    // Ensure the leadId is correctly formatted
+    // $leadId = urlencode($leadId); // URL encode the leadId if needed
+
+    // $updateUrl = $apiUrl . "/contacts(" . $contactId . ")"; // Update the specific contact by ID
+    $updateUrl = $apiUrl . "(" . $leadId . ")";
+
+    // die("Update URL: " . $updateUrl);
+
+    curl_setopt($http, CURLOPT_URL, $updateUrl);
+    curl_setopt($http, CURLOPT_CUSTOMREQUEST, 'PATCH');
+    curl_setopt($http, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($http, CURLOPT_POSTFIELDS, json_encode($contactData));
+    curl_setopt($http, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'Authorization: Bearer ' . $accessToken,
+        'Prefer: return=representation'
+    ]);
+
+    $response = curl_exec($http);
+    $error = curl_error($http);
+    curl_close($http);
+
+    if ($error) {
+        throw new Exception("Curl error: $error");
+    }
+
+    return $response;
+}
+
 // Main logic
-if( !isset($petname) ){
+if( !isset($petname) && !empty($_POST['first_name']) && !empty($_POST['last_name']) && !empty($_POST['email']) && !empty($_POST['phone_number']) ){
+
 
     if( $data['enquiry_subject'] !== 'Work Visa' && $data['enquiry_subject'] !== '0' ){
 
         try {
             $accessToken = getAccessToken($tokenUrl, $clientId, $clientSecret, $resource);
-            sendToDynamics365($apiUrl, $accessToken, $contactData);
-            echo "Data successfully sent to Dynamics 365.";
+
+            // Check if the contact/lead already exists
+            $existingLead = checkExistingLead($apiUrl, $accessToken, $data['email']);
+
+
+            if ($existingLead) {
+                // Update existing lead
+                // die("Lead already exists!");
+
+                // If the request comes true, the ID of the lead is returned
+                $lead_id = $existingLead;
+
+                try {
+                    $response = updateExistingLead($apiUrl, $accessToken, $lead_id, $contactData);
+                    echo "Lead updated successfully. Response: " . $response;
+                } catch (Exception $e) {
+                    echo "Error: " . $e->getMessage();
+                }
+
+            } else {
+                // Create a new lead
+                // die("Lead doesn'te xist");
+                sendToDynamics365($apiUrl, $accessToken, $contactData);
+                // die("New lead created successfully.");
+            }
+            // sendToDynamics365($apiUrl, $accessToken, $contactData);
+            // echo "Data successfully sent to Dynamics 365.";
+
         } catch (Exception $e) {
             echo "Error: " . $e->getMessage();
         }
