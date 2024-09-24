@@ -55,7 +55,8 @@ jQuery(document).ready(function() {
                 var regex = new RegExp('\\b' + word + '\\b', 'gi'); // Create regex for each blacklisted word
                 if (regex.test(content)) {
                     foundBlacklisted = true;
-
+                    alert("You have written '" + word + "' Investment Visa does not offer services in regards to '" + word + "'.");
+                    /*
                     if(word === 'work visa')
                     {
                         alert("You have written Work Visa. Investment Visa does not offer services in regards to Work Visas.");
@@ -64,6 +65,7 @@ jQuery(document).ready(function() {
                         alert("The word or sentence '" + word + "' is not allowed.");
 
                     }
+                    */
                     // Remove the word/sentence from the content
                     content = content.replace(regex, '');
                 }
