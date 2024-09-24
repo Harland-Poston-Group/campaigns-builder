@@ -27,8 +27,25 @@ jQuery(document).ready(function() {
 });
     jQuery(document).ready(function() {
 
-        var blacklist = ["encountered an error","unsubscribe","marketing emails","language settings","unable to access my account","sponsor visa", "tourist visa", "work visa","fuck","shit"]; // Add your blacklisted words or sentences
-
+        var blacklist = [
+            "free visa",
+            "jobless",
+            "uber",
+            "need job",
+            "job",
+            "jobs",
+            "encountered an error",
+            "unsubscribe",
+            "marketing emails",
+            "language settings",
+            "unable to access my account",
+            "sponsor visa",
+            "sponsorship visa",
+            "tourist visa",
+            "work visa",
+            "fuck",
+            "shit"
+        ];
         jQuery('#description').on('input', function() {
             var content = jQuery(this).val();
             var foundBlacklisted = false;
