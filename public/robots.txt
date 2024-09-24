@@ -1,2 +1,5 @@
 User-agent: *
-Disallow:
+Disallow:/send-email.php
+Disallow:/form-submission.php
+Disallow:/config/
+

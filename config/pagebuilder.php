@@ -52,8 +52,8 @@ return [
         'use_login' => true,
         'class' => PHPageBuilder\Modules\Auth\Auth::class,
         'url' => '/admin/auth',
-        'username' => 'PauloBernardes',
-        'password' => 'TrotiNet2022'
+        'username' => 'campaigns.investmentvisa',
+        'password' => 'QEWTMohQC9TBYuV'
     ],
 
     /*
@@ -175,5 +175,6 @@ return [
      |
      */
     'class_replacements' => [
+        // PHPageBuilder\Modules\Auth\Auth::class => App\PageBuilder\Auth\Auth::class,
     ],
 ];
