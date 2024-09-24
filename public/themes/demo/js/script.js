@@ -55,11 +55,11 @@ jQuery(document).ready(function() {
                 var regex = new RegExp('\\b' + word + '\\b', 'gi'); // Create regex for each blacklisted word
                 if (regex.test(content)) {
                     foundBlacklisted = true;
-                    alert("You have written '" + word + "' Investment Visa does not offer services in regards to '" + word + "'.");
+                    alert("You have written '" + word + "' Investment Visa does not offer services in regard to '" + word + "'.");
                     /*
                     if(word === 'work visa')
                     {
-                        alert("You have written Work Visa. Investment Visa does not offer services in regards to Work Visas.");
+                        alert("You have written Work Visa. Investment Visa does not offer services in regard to Work Visas.");
                     }
                     else {
                         alert("The word or sentence '" + word + "' is not allowed.");
