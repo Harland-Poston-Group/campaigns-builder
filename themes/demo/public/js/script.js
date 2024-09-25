@@ -33,6 +33,7 @@ jQuery(document).ready(function() {
         "uber",
         "need job",
         "need a job",
+        "search a job",
         "job",
         "jobs",
         "encountered an error",
@@ -59,16 +60,7 @@ jQuery(document).ready(function() {
             if (regex.test(content)) {
                 foundBlacklisted = true;
                 alert("You have written '" + word + "' Investment Visa does not offer services in regard to '" + word + "'.");
-                /*
-                if(word === 'work visa')
-                {
-                    alert("You have written '" + word + "' Investment Visa does not offer services in regard to '" + word + "'.");
-                }
-                else {
-                    alert("The word or sentence '" + word + "' is not allowed.");
 
-                }
-                */
                 // Remove the word/sentence from the content
                 content = content.replace(regex, '');
             }
