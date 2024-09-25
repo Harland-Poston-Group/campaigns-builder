@@ -28,8 +28,11 @@ jQuery(document).ready(function() {
     var blacklist = [
         "free visa",
         "jobless",
+        "work parmit",
+        "work permit",
         "uber",
         "need job",
+        "need a job",
         "job",
         "jobs",
         "encountered an error",
