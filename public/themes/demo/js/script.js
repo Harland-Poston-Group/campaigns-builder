@@ -47,9 +47,10 @@ jQuery(document).ready(function() {
             "tourist visa",
             "work visa",
             "fuck",
-            "shit"
+            "shit",
+            "sshit"
         ];
-        jQuery('#description').on('input', function() {
+        jQuery('textarea').on('input', function() {
             var content = jQuery(this).val();
             var foundBlacklisted = false;
 
@@ -76,7 +77,7 @@ jQuery(document).ready(function() {
 
             // Update the textarea with the filtered content
             if (foundBlacklisted) {
-                jQuery('#description').val(content); // Update if a blacklisted word was found
+                jQuery('textarea').val(content); // Update if a blacklisted word was found
             }
         });
     });
