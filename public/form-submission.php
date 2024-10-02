@@ -129,7 +129,7 @@ $contactData = [
     "telephone1" => $data['phone_number'],
     "ans_whatareyoulookingfortext"  => $data['enquiry_subject'],
     // "ans_message" => $data['message'],
-    // "ans_brand" => '1000001',
+    "ans_brand" => 119020000,
 ];
 echo '<pre>';
 print_r($contactData);
