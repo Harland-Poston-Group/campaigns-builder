@@ -17,6 +17,18 @@ $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
 
+if(!empty($_SERVER['HTTP_CLIENT_IP'])) {
+    echo 'IP address = '.$_SERVER['HTTP_CLIENT_IP'];
+}
+//if user is from the proxy
+elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    echo 'IP address = '.$_SERVER['HTTP_X_FORWARDED_FOR'];
+}
+//if user is from the remote address
+else{
+    echo 'IP address = '.$_SERVER['REMOTE_ADDR'];
+}
+
 
 // Configuration
 $apiUrl = getenv('DYNAMICS_API_URL'); // Replace with your API URL
@@ -118,6 +130,7 @@ $contactData = [
     "telephone1" => $data['phone_number'],
     "ans_whatareyoulookingfortext"  => $data['enquiry_subject'],
     // "ans_message" => $data['message'],
+    'ans_brand' => 'Investment Visa',
 ];
 
 // Avoid sending message if it's empty - on duplicate entries, this will delete the previous message submission
