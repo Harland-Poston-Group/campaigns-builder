@@ -216,7 +216,7 @@ function sendToDynamics365($apiUrl, $accessToken, $contactData) {
 }
 
 // Function to check if lead/contact exists in Dynamics 365
-function checkExistingLead($apiUrl, $accessToken, $email, $message = null) {
+function checkExistingLead($apiUrl, $accessToken, $email) {
     $http = curl_init();
 
     // $queryUrl = $apiUrl . "/contacts?" . urlencode("\$filter") . "=emailaddress1 eq '" . urlencode($email) . "'"; // Query to check if contact exists by email
@@ -290,31 +290,12 @@ if( !isset($petname) && !empty($first_name) && !empty($last_name) && !empty($pho
             $accessToken = getAccessToken($tokenUrl, $clientId, $clientSecret, $resource);
 
             // Check if the contact/lead already exists
-            $existingLead = checkExistingLead($apiUrl, $accessToken, $data['email'], $data['message']);
+            $existingLead = checkExistingLead($apiUrl, $accessToken, $data['email']);
 
 
             if ($existingLead) {
                 // Update existing lead
                 // die("Lead already exists!");
-
-                if (isset($existingLead['ans_message'])) {
-                    // Append the new message to the existing message
-                    $newMessage = $existingLead['ans_message'] . "\n\n" . $data['message'];
-                } else {
-                    // If no existing message, use the new message
-                    $newMessage = $data['message'];
-                }
-
-                // Prepare data for Dynamics 365
-                $contactData = [
-                    "firstname" => $data['first_name'],
-                    "lastname" => $data['last_name'],
-                    "emailaddress1" => $data['email'],
-                    "telephone1" => $data['phone_number'],
-                    "ans_whatareyoulookingfortext"  => $data['enquiry_subject'],
-                    "ans_brand" => 119020001,
-                    "ans_message" => $newMessage, // Send the combined message
-                ];
 
                 // If the request comes true, the ID of the lead is returned
                 $lead_id = $existingLead;
