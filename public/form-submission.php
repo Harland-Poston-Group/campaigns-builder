@@ -297,6 +297,27 @@ if( !isset($petname) && !empty($first_name) && !empty($last_name) && !empty($pho
                 // Update existing lead
                 // die("Lead already exists!");
 
+                // update the message but keep the old message
+                if (isset($existingLead['ans_message'])) {
+                    // Append the new message to the existing message
+                    $newMessage = $existingLead['ans_message'] . "\n\n" . $data['message'];
+                } else {
+                    // If no existing message, use the new message
+                    $newMessage = $data['message'];
+                }
+
+                // Prepare data for Dynamics 365
+                $contactData = [
+                    "firstname" => $data['first_name'],
+                    "lastname" => $data['last_name'],
+                    "emailaddress1" => $data['email'],
+                    "telephone1" => $data['phone_number'],
+                    "ans_whatareyoulookingfortext"  => $data['enquiry_subject'],
+                    "ans_brand" => 119020001,
+                    "ans_message" => $newMessage, // Send the combined message
+                ];
+
+
                 // If the request comes true, the ID of the lead is returned
                 $lead_id = $existingLead;
 
