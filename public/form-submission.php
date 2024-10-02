@@ -216,7 +216,7 @@ function sendToDynamics365($apiUrl, $accessToken, $contactData) {
 }
 
 // Function to check if lead/contact exists in Dynamics 365
-function checkExistingLead($apiUrl, $accessToken, $email) {
+function checkExistingLead($apiUrl, $accessToken, $email, $message = null) {
     $http = curl_init();
 
     // $queryUrl = $apiUrl . "/contacts?" . urlencode("\$filter") . "=emailaddress1 eq '" . urlencode($email) . "'"; // Query to check if contact exists by email
@@ -290,7 +290,7 @@ if( !isset($petname) && !empty($first_name) && !empty($last_name) && !empty($pho
             $accessToken = getAccessToken($tokenUrl, $clientId, $clientSecret, $resource);
 
             // Check if the contact/lead already exists
-            $existingLead = checkExistingLead($apiUrl, $accessToken, $data['email']);
+            $existingLead = checkExistingLead($apiUrl, $accessToken, $data['email'], $data['message']);
 
 
             if ($existingLead) {
