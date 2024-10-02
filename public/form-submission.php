@@ -29,6 +29,7 @@ else{
     echo 'IP address = '.$_SERVER['REMOTE_ADDR'];
 }
 
+// echo 'this is running';
 
 // Configuration
 $apiUrl = getenv('DYNAMICS_API_URL'); // Replace with your API URL
@@ -40,22 +41,20 @@ $resource = getenv('DYNAMICS_RESOURCE'); // Replace with your resource URL
 if( isset($_POST['petname']) && !empty($_POST['petname']) ){
     $petname = $_POST['petname'];
 }
-
-
-// echo '<pre>';
-// print_r($apiUrl);
-// echo '<br>';
-// print_r($tokenUrl);
-// echo '<br>';
-// print_r($clientId);
-// echo '<br>';
-// print_r($clientSecret);
-// echo '<br>';
-// print_r($resource);
-// echo '</pre>';
-
-// die('hey');
-
+/*
+ echo '<pre>';
+ print_r($apiUrl);
+ echo '<br>';
+ print_r($tokenUrl);
+ echo '<br>';
+ print_r($clientId);
+ echo '<br>';
+ print_r($clientSecret);
+ echo '<br>';
+ print_r($resource);
+ echo '</pre>';
+ die('hey');
+*/
 if( isset($_POST['first_name']) && !empty($_POST['first_name']) ){
 
     $first_name = $_POST['first_name'];
@@ -130,9 +129,11 @@ $contactData = [
     "telephone1" => $data['phone_number'],
     "ans_whatareyoulookingfortext"  => $data['enquiry_subject'],
     // "ans_message" => $data['message'],
-    'ans_brand' => 'Investment Visa',
+    // 'ans_brand' => 'Investment Visa',
 ];
-
+echo '<pre>';
+print_r($contactData);
+echo '</pre>';
 // Avoid sending message if it's empty - on duplicate entries, this will delete the previous message submission
 // and we do not want this as we'll lose data
 if( !empty( $data['message'] ) ){
@@ -253,7 +254,7 @@ function updateExistingLead($apiUrl, $accessToken, $leadId, $contactData) {
     // $updateUrl = $apiUrl . "/contacts(" . $contactId . ")"; // Update the specific contact by ID
     $updateUrl = $apiUrl . "(" . $leadId . ")";
 
-    // die("Update URL: " . $updateUrl);
+     // die("Update URL: " . $updateUrl);
 
     curl_setopt($http, CURLOPT_URL, $updateUrl);
     curl_setopt($http, CURLOPT_CUSTOMREQUEST, 'PATCH');
@@ -338,5 +339,3 @@ if( !isset($petname) && !empty($first_name) && !empty($last_name) && !empty($pho
 
 // Clean up the request handling
 $kernel->terminate($request, $response);
-
-?>
