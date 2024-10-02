@@ -131,9 +131,11 @@ $contactData = [
     // "ans_message" => $data['message'],
     "ans_brand" => 119020000,
 ];
+/*
 echo '<pre>';
 print_r($contactData);
 echo '</pre>';
+*/
 // Avoid sending message if it's empty - on duplicate entries, this will delete the previous message submission
 // and we do not want this as we'll lose data
 if( !empty( $data['message'] ) ){
