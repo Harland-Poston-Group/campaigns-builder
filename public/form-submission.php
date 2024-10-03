@@ -395,8 +395,14 @@ if( !isset($petname) && !empty($first_name) && !empty($last_name) && !empty($pho
                 $lead_id = $existingLead['leadid'];
                 $existingMessage = $existingLead['ans_message'];
 
-                // Append the new message to the existing message
-                $combinedMessage = trim($existingMessage . ' ' . $data['message']);
+                // Get the current timestamp in desired format
+                $timestamp = date('d/m/Y H:i'); // Example: 03/10/2024 08:55
+
+                // Append the new message with a separator
+                $newMessage = "(Last updated: $timestamp) " . $data['message'];
+                $combinedMessage = trim($existingMessage . ' ' . $newMessage);
+
+                // Prepare data to update Dynamics
                 $contactData['ans_message'] = $combinedMessage;
 
                 // Update the existing lead with the new message
