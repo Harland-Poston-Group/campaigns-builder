@@ -1,6 +1,6 @@
 <?php
-
 // File to handle the form submission and create the lead within Dynamics
+use Illuminate\Support\Facades\Mail;
 
 // Include Composer's autoload file
 require '../vendor/autoload.php';
@@ -111,6 +111,101 @@ if( isset($_POST['message']) && !empty($_POST['message']) ){
 
 }
 
+// echo $_SERVER['HTTP_REFERER'];
+$referer = $_SERVER['HTTP_REFERER'];
+
+// Parse the URL to extract the query string
+$queryString = parse_url($referer, PHP_URL_QUERY);
+
+// Parse the query string into an associative array
+parse_str($queryString, $queryParams);
+/*
+    echo '<pre>';
+    print_r($queryParams);  // Output all the segments
+    echo '</pre>';
+*/
+if (isset($queryParams['utm_source'])) {
+    echo "utm_source exists: " . $queryParams['utm_source'];
+} else {
+    echo "<br>utm_source does not exist.<br>";
+}
+if (isset($queryParams['utm_medium'])) {
+    echo "utm_medium exists: " . $queryParams['utm_medium'];
+} else {
+    echo "utm_medium does not exist.<br>";
+}
+if (isset($queryParams['utm_campaign'])) {
+    echo "utm_campaign exists: " . $queryParams['utm_campaign'];
+} else {
+    echo "utm_campaign does not exist.<br>";
+}
+if (isset($queryParams['hsa_acc'])) {
+    echo "hsa_acc exists: " . $queryParams['hsa_acc'];
+} else {
+    echo "hsa_acc does not exist.<br>";
+}
+if (isset($queryParams['hsa_cam'])) {
+    echo "hsa_cam exists: " . $queryParams['hsa_cam'];
+} else {
+    echo "hsa_cam does not exist.<br>";
+}
+if (isset($queryParams['hsa_grp'])) {
+    echo "hsa_grp exists: " . $queryParams['hsa_grp'];
+} else {
+    echo "hsa_grp does not exist.<br>";
+}
+if (isset($queryParams['hsa_grp'])) {
+    echo "hsa_grp exists: " . $queryParams['hsa_grp'];
+} else {
+    echo "hsa_grp does not exist.<br>";
+}
+if (isset($queryParams['hsa_ad'])) {
+    echo "hsa_ad exists: " . $queryParams['hsa_ad'];
+} else {
+    echo "hsa_ad does not exist.<br>";
+}
+if (isset($queryParams['hsa_src'])) {
+    echo "hsa_src exists: " . $queryParams['hsa_src'];
+} else {
+    echo "hsa_src does not exist.<br>";
+}
+if (isset($queryParams['hsa_tgt'])) {
+    echo "hsa_tgt exists: " . $queryParams['hsa_tgt'];
+} else {
+    echo "hsa_tgt does not exist.<br>";
+}
+if (isset($queryParams['hsa_kw'])) {
+    echo "hsa_kw exists: " . $queryParams['hsa_kw'];
+} else {
+    echo "hsa_kw does not exist.<br>";
+}
+if (isset($queryParams['hsa_mt'])) {
+    echo "hsa_mt exists: " . $queryParams['hsa_mt'];
+} else {
+    echo "hsa_mt does not exist.<br>";
+}
+if (isset($queryParams['hsa_net'])) {
+    echo "hsa_net exists: " . $queryParams['hsa_net'];
+} else {
+    echo "hsa_net does not exist.<br>";
+}
+if (isset($queryParams['hsa_ver'])) {
+    echo "hsa_ver exists: " . $queryParams['hsa_ver'];
+} else {
+    echo "hsa_ver does not exist.<br>";
+}
+if (isset($queryParams['gad_source'])) {
+    echo "gad_source exists: " . $queryParams['gad_source'];
+} else {
+    echo "gad_source does not exist.<br>";
+}
+if (isset($queryParams['gclid'])) {
+    echo "gclid exists: " . $queryParams['gclid'];
+} else {
+    echo "gclid does not exist.<br>";
+}
+
+
 // Collect form data
 $data = [
     'first_name' => $first_name ?? 'First name empty',
@@ -130,6 +225,7 @@ $contactData = [
     "ans_whatareyoulookingfortext"  => $data['enquiry_subject'],
     // "ans_message" => $data['message'],
     "ans_brand" => 119020001,
+    // "ans_googleadclickid" => 'google add test',
 ];
 /*
  * 119020001
@@ -137,6 +233,7 @@ echo '<pre>';
 print_r($contactData);
 echo '</pre>';
 */
+
 // Avoid sending message if it's empty - on duplicate entries, this will delete the previous message submission
 // and we do not want this as we'll lose data
 if( !empty( $data['message'] ) ){
@@ -295,7 +392,7 @@ function updateExistingLead($apiUrl, $accessToken, $leadId, $contactData) {
     // $updateUrl = $apiUrl . "/contacts(" . $contactId . ")"; // Update the specific contact by ID
     $updateUrl = $apiUrl . "(" . $leadId . ")";
 
-     // die("Update URL: " . $updateUrl);
+    // die("Update URL: " . $updateUrl);
 
     curl_setopt($http, CURLOPT_URL, $updateUrl);
     curl_setopt($http, CURLOPT_CUSTOMREQUEST, 'PATCH');
@@ -400,7 +497,9 @@ if( !isset($petname) && !empty($first_name) && !empty($last_name) && !empty($pho
 
                 // Append the new message with a separator
                 $newMessage = "(Last updated: $timestamp) " . $data['message'];
-                $combinedMessage = trim($existingMessage . ' ' . $newMessage);
+                //$combinedMessage = trim($existingMessage . ' ' . $newMessage);
+
+                $combinedMessage = trim($newMessage. ' ' . $existingMessage );
 
                 // Prepare data to update Dynamics
                 $contactData['ans_message'] = $combinedMessage;
@@ -408,7 +507,7 @@ if( !isset($petname) && !empty($first_name) && !empty($last_name) && !empty($pho
                 // Update the existing lead with the new message
                 try {
                     $response = updateExistingLead($apiUrl, $accessToken, $lead_id, $contactData);
-                    echo "Lead updated successfully. Response: " . $response;
+                    echo "Lead updated successfully<br>. Response: <pre>" . $response. '</pre>';
                 } catch (Exception $e) {
                     echo "Error: " . $e->getMessage();
                 }
@@ -417,7 +516,7 @@ if( !isset($petname) && !empty($first_name) && !empty($last_name) && !empty($pho
                 // No existing lead, create a new one
                 $contactData['ans_message'] = $data['message'];
                 sendToDynamics365($apiUrl, $accessToken, $contactData);
-                echo "New lead created successfully.";
+                echo "New lead created successfully.<br>";
             }
 
         } catch (Exception $e) {
@@ -431,6 +530,50 @@ if( !isset($petname) && !empty($first_name) && !empty($last_name) && !empty($pho
 } else {
     print_r('illegitimate submission');
 }
+
+Mail::send([], [], function ($message) use ($data, $contactData) {
+
+    // echo $_SERVER['HTTP_REFERER'];
+    $referer = $_SERVER['HTTP_REFERER'];
+
+    // Parse the URL to extract the query string
+    $queryString = parse_url($referer, PHP_URL_QUERY);
+
+    // Parse the query string into an associative array
+    parse_str($queryString, $queryParams);
+
+    if (isset($queryParams['utm_source'])) {
+       $utmS = $queryParams['utm_source'];
+    } else {
+        $utmS = "utm_source is not available.";
+    }
+    if (isset($queryParams['utm_medium'])) {
+        $utmM = $queryParams['utm_medium'];
+    } else {
+        $utmM = "utm_medium is not available";
+    }
+
+
+    if ($contactData['ans_brand'] === 119020001 ) {
+        $contactData['ans_brand'] = 'Investment Visa';
+    }
+    else {
+        $contactData['ans_brand'] = 'Portugal Homes';
+    }
+
+    //$message->to('enquiries@investmentvisa.com')
+    $message->to('paulo.bernardes@portugalhomes.com')
+        ->subject('New form submission for Investment Visa')
+        ->html('<h2>Contact Data for Dynamics 365</h2>
+                <p><strong>First Name:</strong> ' . $contactData['firstname'] . '</p>
+                <p><strong>Last Name:</strong> ' . $contactData['lastname'] . '</p>
+                <p><strong>Email Address:</strong> ' . $contactData['emailaddress1'] . '</p>
+                <p><strong>Phone Number:</strong> ' . $contactData['telephone1'] . '</p>
+                <p><strong>Enquiry Subject:</strong> ' . $contactData['ans_whatareyoulookingfortext'] . '</p>
+                <p><strong>Message:</strong> ' . $data['message'] . '</p>
+                <p><strong>Brand:</strong> ' . $contactData['ans_brand'] . '</p>
+                <p><strong>Utm Source:</strong> ' . $utmS . '</p>');
+});
 
 // Clean up the request handling
 $kernel->terminate($request, $response);
