@@ -216,6 +216,44 @@ function sendToDynamics365($apiUrl, $accessToken, $contactData) {
 }
 
 // Function to check if lead/contact exists in Dynamics 365
+
+// Function to check if lead/contact exists in Dynamics 365
+function checkExistingLead($apiUrl, $accessToken, $email) {
+    $http = curl_init();
+
+    // Query to check if contact exists by email
+    $queryUrl = $apiUrl . "?\$filter=emailaddress1%20eq%20'".$email."'&\$select=leadid,ans_message";
+
+    curl_setopt($http, CURLOPT_URL, $queryUrl);
+    curl_setopt($http, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($http, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'Authorization: Bearer ' . $accessToken,
+    ]);
+
+    $response = curl_exec($http);
+    $error = curl_error($http);
+    curl_close($http);
+
+    if ($error) {
+        throw new Exception("Curl error: $error");
+    }
+
+    $responseData = json_decode($response, true);
+
+    // If the query returns results, return the first lead's ID and ans_message
+    if (isset($responseData['value']) && count($responseData['value']) > 0) {
+        return [
+            'leadid' => $responseData['value'][0]['leadid'],
+            'ans_message' => $responseData['value'][0]['ans_message'] ?? '' // Return existing message if available
+        ];
+    } else {
+        return false; // No existing lead found
+    }
+}
+
+
+/*
 function checkExistingLead($apiUrl, $accessToken, $email) {
     $http = curl_init();
 
@@ -246,7 +284,7 @@ function checkExistingLead($apiUrl, $accessToken, $email) {
         return false; // No existing lead found
     }
 }
-
+*/
 // Function to update an existing lead/contact in Dynamics 365
 function updateExistingLead($apiUrl, $accessToken, $leadId, $contactData) {
     $http = curl_init();
@@ -281,6 +319,7 @@ function updateExistingLead($apiUrl, $accessToken, $leadId, $contactData) {
 }
 
 // Main logic
+/*
 if( !isset($petname) && !empty($first_name) && !empty($last_name) && !empty($phone_number) && !empty($message) ){
 
 
@@ -338,6 +377,53 @@ if( !isset($petname) && !empty($first_name) && !empty($last_name) && !empty($pho
     echo '<br>';
     print_r($message);
 
+}
+*/
+// Main logic
+if( !isset($petname) && !empty($first_name) && !empty($last_name) && !empty($phone_number) && !empty($message) ){
+
+    if( $data['enquiry_subject'] !== 'Work Visa' && $data['enquiry_subject'] !== '0' ){
+
+        try {
+            $accessToken = getAccessToken($tokenUrl, $clientId, $clientSecret, $resource);
+
+            // Check if the contact/lead already exists
+            $existingLead = checkExistingLead($apiUrl, $accessToken, $data['email']);
+
+            if ($existingLead) {
+                // Lead exists, get the existing message
+                $lead_id = $existingLead['leadid'];
+                $existingMessage = $existingLead['ans_message'];
+
+                // Append the new message to the existing message
+                $combinedMessage = trim($existingMessage . ' ' . $data['message']);
+                $contactData['ans_message'] = $combinedMessage;
+
+                // Update the existing lead with the new message
+                try {
+                    $response = updateExistingLead($apiUrl, $accessToken, $lead_id, $contactData);
+                    echo "Lead updated successfully. Response: " . $response;
+                } catch (Exception $e) {
+                    echo "Error: " . $e->getMessage();
+                }
+
+            } else {
+                // No existing lead, create a new one
+                $contactData['ans_message'] = $data['message'];
+                sendToDynamics365($apiUrl, $accessToken, $contactData);
+                echo "New lead created successfully.";
+            }
+
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
+
+    } else {
+        print_r('Work Visa Submission attempt');
+    }
+
+} else {
+    print_r('illegitimate submission');
 }
 
 // Clean up the request handling
