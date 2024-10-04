@@ -112,99 +112,13 @@ if( isset($_POST['message']) && !empty($_POST['message']) ){
 }
 
 // echo $_SERVER['HTTP_REFERER'];
-$referer = $_SERVER['HTTP_REFERER'];
+// $referer = $_SERVER['HTTP_REFERER'];
 
-// Parse the URL to extract the query string
-$queryString = parse_url($referer, PHP_URL_QUERY);
-
-// Parse the query string into an associative array
-parse_str($queryString, $queryParams);
-/*
-    echo '<pre>';
-    print_r($queryParams);  // Output all the segments
-    echo '</pre>';
-*/
-if (isset($queryParams['utm_source'])) {
-    echo "utm_source exists: " . $queryParams['utm_source'];
-} else {
-    echo "<br>utm_source does not exist.<br>";
-}
-if (isset($queryParams['utm_medium'])) {
-    echo "utm_medium exists: " . $queryParams['utm_medium'];
-} else {
-    echo "utm_medium does not exist.<br>";
-}
-if (isset($queryParams['utm_campaign'])) {
-    echo "utm_campaign exists: " . $queryParams['utm_campaign'];
-} else {
-    echo "utm_campaign does not exist.<br>";
-}
-if (isset($queryParams['hsa_acc'])) {
-    echo "hsa_acc exists: " . $queryParams['hsa_acc'];
-} else {
-    echo "hsa_acc does not exist.<br>";
-}
-if (isset($queryParams['hsa_cam'])) {
-    echo "hsa_cam exists: " . $queryParams['hsa_cam'];
-} else {
-    echo "hsa_cam does not exist.<br>";
-}
-if (isset($queryParams['hsa_grp'])) {
-    echo "hsa_grp exists: " . $queryParams['hsa_grp'];
-} else {
-    echo "hsa_grp does not exist.<br>";
-}
-if (isset($queryParams['hsa_grp'])) {
-    echo "hsa_grp exists: " . $queryParams['hsa_grp'];
-} else {
-    echo "hsa_grp does not exist.<br>";
-}
-if (isset($queryParams['hsa_ad'])) {
-    echo "hsa_ad exists: " . $queryParams['hsa_ad'];
-} else {
-    echo "hsa_ad does not exist.<br>";
-}
-if (isset($queryParams['hsa_src'])) {
-    echo "hsa_src exists: " . $queryParams['hsa_src'];
-} else {
-    echo "hsa_src does not exist.<br>";
-}
-if (isset($queryParams['hsa_tgt'])) {
-    echo "hsa_tgt exists: " . $queryParams['hsa_tgt'];
-} else {
-    echo "hsa_tgt does not exist.<br>";
-}
-if (isset($queryParams['hsa_kw'])) {
-    echo "hsa_kw exists: " . $queryParams['hsa_kw'];
-} else {
-    echo "hsa_kw does not exist.<br>";
-}
-if (isset($queryParams['hsa_mt'])) {
-    echo "hsa_mt exists: " . $queryParams['hsa_mt'];
-} else {
-    echo "hsa_mt does not exist.<br>";
-}
-if (isset($queryParams['hsa_net'])) {
-    echo "hsa_net exists: " . $queryParams['hsa_net'];
-} else {
-    echo "hsa_net does not exist.<br>";
-}
-if (isset($queryParams['hsa_ver'])) {
-    echo "hsa_ver exists: " . $queryParams['hsa_ver'];
-} else {
-    echo "hsa_ver does not exist.<br>";
-}
-if (isset($queryParams['gad_source'])) {
-    echo "gad_source exists: " . $queryParams['gad_source'];
-} else {
-    echo "gad_source does not exist.<br>";
-}
-if (isset($queryParams['gclid'])) {
-    echo "gclid exists: " . $queryParams['gclid'];
-} else {
-    echo "gclid does not exist.<br>";
-}
-
+$utm_source = $_POST['utm_source'] ?? null;
+$utm_medium = $_POST['utm_medium'] ?? null;
+$utm_campaign = $_POST['utm_campaign'] ?? null;
+$utm_term = $_POST['utm_term'] ?? null;
+$utm_content = $_POST['utm_content'] ?? null;
 
 // Collect form data
 $data = [
@@ -225,6 +139,10 @@ $contactData = [
     "ans_whatareyoulookingfortext"  => $data['enquiry_subject'],
     // "ans_message" => $data['message'],
     "ans_brand" => 119020001,
+    "campaignid" => $utm_campaign ?? null,
+    "ans_leadsource" => $utm_source ?? null,
+
+
     // "ans_googleadclickid" => 'google add test',
 ];
 /*
@@ -533,25 +451,8 @@ if( !isset($petname) && !empty($first_name) && !empty($last_name) && !empty($pho
 
 Mail::send([], [], function ($message) use ($data, $contactData) {
 
-    // echo $_SERVER['HTTP_REFERER'];
-    $referer = $_SERVER['HTTP_REFERER'];
+    $utm_source = $_POST['utm_source'] ?? null;
 
-    // Parse the URL to extract the query string
-    $queryString = parse_url($referer, PHP_URL_QUERY);
-
-    // Parse the query string into an associative array
-    parse_str($queryString, $queryParams);
-
-    if (isset($queryParams['utm_source'])) {
-       $utmS = $queryParams['utm_source'];
-    } else {
-        $utmS = "utm_source is not available.";
-    }
-    if (isset($queryParams['utm_medium'])) {
-        $utmM = $queryParams['utm_medium'];
-    } else {
-        $utmM = "utm_medium is not available";
-    }
 
 
     if ($contactData['ans_brand'] === 119020001 ) {
@@ -561,8 +462,8 @@ Mail::send([], [], function ($message) use ($data, $contactData) {
         $contactData['ans_brand'] = 'Portugal Homes';
     }
 
-    $message->to('enquiries@investmentvisa.com')
-    //$message->to('paulo.bernardes@portugalhomes.com')
+    //$message->to('enquiries@investmentvisa.com')
+    $message->to('paulo.bernardes@portugalhomes.com')
         ->subject('New form submission for Investment Visa')
         ->html('<h2>Contact Data for Dynamics 365</h2>
                 <p><strong>First Name:</strong> ' . $contactData['firstname'] . '</p>
@@ -572,7 +473,7 @@ Mail::send([], [], function ($message) use ($data, $contactData) {
                 <p><strong>Enquiry Subject:</strong> ' . $contactData['ans_whatareyoulookingfortext'] . '</p>
                 <p><strong>Message:</strong> ' . $data['message'] . '</p>
                 <p><strong>Brand:</strong> ' . $contactData['ans_brand'] . '</p>
-                <p><strong>Utm Source:</strong> ' . $utmS . '</p>');
+                <p><strong>Utm Source:</strong> ' . $utm_source . '</p>');
 });
 
 // Clean up the request handling
