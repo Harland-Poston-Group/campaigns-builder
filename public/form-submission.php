@@ -139,10 +139,8 @@ $contactData = [
     "ans_whatareyoulookingfortext"  => $data['enquiry_subject'],
     // "ans_message" => $data['message'],
     "ans_brand" => 119020001,
-    "campaignid" => $utm_campaign ?? null,
-    "ans_leadsource" => $utm_source ?? null,
-
-
+    //"campaignid" => $utm_campaign ?? null,
+    //"ans_leadsource" => $utm_source ?? null,
     // "ans_googleadclickid" => 'google add test',
 ];
 /*
