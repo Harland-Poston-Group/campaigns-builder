@@ -27,7 +27,7 @@ jQuery(document).ready(function() {
 });
     jQuery(document).ready(function() {
 
-        var blacklist = [
+        const blacklist = [
             "free visa",
             "jobless",
             "work parmit",
@@ -51,8 +51,8 @@ jQuery(document).ready(function() {
             "sshit"
         ];
         jQuery('textarea').on('input', function() {
-            var content = jQuery(this).val();
-            var foundBlacklisted = false;
+            let content = jQuery(this).val();
+            let foundBlacklisted = false;
 
             // Check if any blacklisted word/sentence exists
             jQuery.each(blacklist, function(index, word) {
@@ -450,7 +450,7 @@ jQuery("#campaign-form").on("submit", function(e){
             submitButton.prop('disabled', false);
             this_form_element[0].reset();
             // Redirect the user to the /thankyou page after completion
-            window.location.href = "/thank-you";
+            // window.location.href = "/thank-you";
         }
     });
 
@@ -483,4 +483,22 @@ const swiper = new Swiper('.swiper-container', {
     }
 });
 */
+var urlParams = new URLSearchParams(window.location.search);
 
+// Function to add hidden fields dynamically
+function addHiddenField(name, value) {
+    if (value !== null && value !== "") {
+        $('<input>').attr({
+            type: 'hidden',
+            name: name,
+            value: value
+        }).appendTo('#campaign-form');
+    }
+}
+
+// Add UTM parameters as hidden fields to the form
+addHiddenField('utm_source', urlParams.get('utm_source'));
+addHiddenField('utm_medium', urlParams.get('utm_medium'));
+addHiddenField('utm_campaign', urlParams.get('utm_campaign'));
+addHiddenField('utm_term', urlParams.get('utm_term'));
+addHiddenField('utm_content', urlParams.get('utm_content'));
