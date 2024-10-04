@@ -462,8 +462,8 @@ Mail::send([], [], function ($message) use ($data, $contactData) {
         $contactData['ans_brand'] = 'Portugal Homes';
     }
 
-    //$message->to('enquiries@investmentvisa.com')
-    $message->to('paulo.bernardes@portugalhomes.com')
+    $message->to('enquiries@investmentvisa.com')
+    // $message->to('paulo.bernardes@portugalhomes.com')
         ->subject('New form submission for Investment Visa')
         ->html('<h2>Contact Data for Dynamics 365</h2>
                 <p><strong>First Name:</strong> ' . $contactData['firstname'] . '</p>
