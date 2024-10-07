@@ -8,6 +8,7 @@ jQuery(document).ready(function() {
         // Set a new title for the page
         document.title = "Investment Visa US Campaign";
     }
+
     if (currentUrl.indexOf("/thankyou") !== -1) {
         // Set a new title for the page
         document.title = "Before you leave...";
@@ -15,17 +16,18 @@ jQuery(document).ready(function() {
 
     jQuery('#campaign-form.thank-you-form').insertBefore('#footer-thank-you').addClass('col-12');
 
-});
+    jQuery('.address-block').html(function(_, html) {
+        // Replace "Terms & Conditions | Privacy Policy" with linked text
+        return html.replace('Terms & Conditions | Privacy Policy',
+            '<a href="https://www.investmentvisa.com/privacy-policy" target="_blank">Terms & Conditions</a> | <a href="https://www.investmentvisa.com/privacy-policy" target="_blank">Privacy Policy</a>'
+        );
+    });
 
-jQuery.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-    }
-});
 
+});
 jQuery(document).ready(function() {
 
-    var blacklist = [
+    const blacklist = [
         "free visa",
         "jobless",
         "work parmit",
@@ -33,7 +35,6 @@ jQuery(document).ready(function() {
         "uber",
         "need job",
         "need a job",
-        "search a job",
         "job",
         "jobs",
         "encountered an error",
@@ -46,13 +47,12 @@ jQuery(document).ready(function() {
         "tourist visa",
         "work visa",
         "fuck",
-        "shit"
+        "shit",
+        "sshit"
     ];
-
-
     jQuery('textarea').on('input', function() {
-        var content = jQuery(this).val();
-        var foundBlacklisted = false;
+        let content = jQuery(this).val();
+        let foundBlacklisted = false;
 
         // Check if any blacklisted word/sentence exists
         jQuery.each(blacklist, function(index, word) {
@@ -60,7 +60,16 @@ jQuery(document).ready(function() {
             if (regex.test(content)) {
                 foundBlacklisted = true;
                 alert("You have written '" + word + "' Investment Visa does not offer services in regard to '" + word + "'.");
+                /*
+                if(word === 'work visa')
+                {
+                    alert("You have written Work Visa. Investment Visa does not offer services in regard to Work Visas.");
+                }
+                else {
+                    alert("The word or sentence '" + word + "' is not allowed.");
 
+                }
+                */
                 // Remove the word/sentence from the content
                 content = content.replace(regex, '');
             }
@@ -72,6 +81,67 @@ jQuery(document).ready(function() {
         }
     });
 });
+
+
+jQuery.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+    }
+});
+document.addEventListener('DOMContentLoaded', function() {
+    // Capture referrer and location data
+    let referrer = document.referrer;
+
+    let locationData = {};
+
+    /*
+    fetch('http://ip-api.com/json/')
+        .then(response => response.json())
+        .then(data => {
+            locationData.country = data.country;
+            locationData.city = data.city;
+            locationData.region = data.regionName;
+            locationData.timezone = data.timezone;
+            locationData.query = data.query;
+            // Attach form submit event after location data is available
+            document.getElementById('campaign-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const formData = new FormData(this);
+
+                // Append referrer and location data to the formData
+                formData.append('referrer', referrer);
+                formData.append('country', locationData.country);
+                formData.append('city', locationData.city);
+                formData.append('region', locationData.region);
+                formData.append('timezone', locationData.timezone);
+                formData.append('IP', locationData.query);
+
+                fetch('send-email.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        // Show Toastify toast message
+                        Toastify({
+                            text: data,
+                            duration: 5000, // 5 seconds
+                            gravity: "top", // top or bottom
+                            position: "center", // left, center, or right
+                            backgroundColor: "#6A257A", // customize color
+                        }).showToast();
+                        // Reset the form after successful submission
+                        this.reset();
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        })
+        .catch(err => console.error('Error getting location data:', err));
+    */
+});
+
+
+/*
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('campaign-form').addEventListener('submit', function(event) {
         event.preventDefault();
@@ -117,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(err => console.error(err));
 });
-
+*/
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -188,7 +258,7 @@ jQuery(document).ready(function() {
     jQuery(".right-button-scroll").on( "click", function(e) {
         e.preventDefault();
         jQuery('#campaign-form').hide().addClass('move-to-right');
-       // jQuery('<a href="#" class="btn-close"><i class="far fa-times-circle"></i></a>').insertBefore('#campaign-form .form-title');
+        // jQuery('<a href="#" class="btn-close"><i class="far fa-times-circle"></i></a>').insertBefore('#campaign-form .form-title');
         jQuery('#campaign-form.move-to-right').show();
     });
 });
@@ -259,19 +329,19 @@ jQuery(document).ready(function(){
         jQuery('body').addClass('admin-page');
     }
     */
-/*
-jQuery('<div class="toast-container p-3 top-50 start-70 translate-middle" id="toastPlacement" data-original-class="toast-container p-3">' +
-    '<div aria-live="polite" aria-atomic="true" class="position-relative bd-example-toasts">' +
-    '<div class="toast" data-bs-autohide="false">\n' +
-    '  <div class="toast-header">\n' +
-    '    <i class="fas fa-info-circle"></i> You have selected Work Visa\n' +
-    '    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>\n' +
-    '  </div>\n' +
-    '  <div class="toast-body">\n' +
-    '    Investment Visa does not offer services in regards to Work Visas.\n' +
-    '  </div>\n' +
-    '</div></div></div>').insertAfter('#campaign-form .form-title');
-*/
+    /*
+    jQuery('<div class="toast-container p-3 top-50 start-70 translate-middle" id="toastPlacement" data-original-class="toast-container p-3">' +
+        '<div aria-live="polite" aria-atomic="true" class="position-relative bd-example-toasts">' +
+        '<div class="toast" data-bs-autohide="false">\n' +
+        '  <div class="toast-header">\n' +
+        '    <i class="fas fa-info-circle"></i> You have selected Work Visa\n' +
+        '    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>\n' +
+        '  </div>\n' +
+        '  <div class="toast-body">\n' +
+        '    Investment Visa does not offer services in regards to Work Visas.\n' +
+        '  </div>\n' +
+        '</div></div></div>').insertAfter('#campaign-form .form-title');
+    */
     jQuery("#enquiry_subject").change(function() {
         let val = jQuery(this).val();
         const alert = jQuery('<div id="campaign-info" class="alert alert-warning alert-dismissible fade show" role="alert"><a class="btn-close" data-dismiss="alert" aria-label="Close"><i class="far fa-times-circle"></i></a><i class="fas fa-info-circle"></i> You have selected Work Visa<br>Investment Visa does not offer services in regards to Work Visas.</div>');
@@ -309,8 +379,80 @@ jQuery('<div class="toast-container p-3 top-50 start-70 translate-middle" id="to
         }
     });
 
+});
+
+// Form submission
+jQuery("#campaign-form").on("submit", function(e){
+
+    e.preventDefault();
+
+    var this_form = jQuery(this).serialize();
+    var this_form_element = jQuery(this);
+
+    let submitButton = this_form_element.find('button[type=submit]');
+
+    if( submitButton.length > 0 ){
+
+        submitButton.html('Submitting... <span id="spinner"><svg version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve" width="20px" height="20px"><path fill="#fff" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50"><animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite" /></path></svg></span>');
+
+    }
+
+    // Disable the button
+    submitButton.prop('disabled', true);
 
 
+    jQuery.ajax({
+        url: "/form-submission.php",
+        type: "POST",
+        // headers: {
+        //     'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+        // },
+        data: this_form,
+        success:function(response){
+            if (response){
+                //   jQuery('#success-message').text(response.success).css({"color":"green"});
+
+                // Notify(response.success, null, null, 'success');
+
+                // // Clean form
+                // jQuery("#get-in-touch-with-us-form")[0].reset();
+                // grecaptcha.reset(); // Reset the reCAPTCHA widget
+
+                console.log('success: ' + response);
+
+                Toastify({
+                    text: 'Thank you for your enquiry. We\'ll be in contact, shortly',
+                    duration: 5000, // 5 seconds
+                    gravity: "top", // top or bottom
+                    position: "center", // left, center, or right
+                    backgroundColor: "#6A257A", // customize color
+                }).showToast();
+
+                // Reset the form after successful submission
+                // this_form_element.reset();
+
+            }else{
+                // jQuery('#success-message').text(response.error).css({"color":"red"});
+
+                // Notify(response.error, null, null, 'error');
+                // enquire_button.attr('disabled', false);
+                // grecaptcha.reset(); // Reset the reCAPTCHA widget
+                console.log('error: ' + response);
+
+            }
+        },
+        error: function error(xhr, status, errorMessage) {
+            console.log("RESPONSE: , error: " + errorMessage);
+        },
+        complete: function() {
+            // Revert the button text and remove the spinner
+            submitButton.html('Submit');
+            submitButton.prop('disabled', false);
+            this_form_element[0].reset();
+            // Redirect the user to the /thankyou page after completion
+            // window.location.href = "/thank-you";
+        }
+    });
 
 });
 /*
@@ -341,4 +483,22 @@ const swiper = new Swiper('.swiper-container', {
     }
 });
 */
+var urlParams = new URLSearchParams(window.location.search);
 
+// Function to add hidden fields dynamically
+function addHiddenField(name, value) {
+    if (value !== null && value !== "") {
+        $('<input>').attr({
+            type: 'hidden',
+            name: name,
+            value: value
+        }).appendTo('#campaign-form');
+    }
+}
+
+// Add UTM parameters as hidden fields to the form
+addHiddenField('utm_source', urlParams.get('utm_source'));
+addHiddenField('utm_medium', urlParams.get('utm_medium'));
+addHiddenField('utm_campaign', urlParams.get('utm_campaign'));
+addHiddenField('utm_term', urlParams.get('utm_term'));
+addHiddenField('utm_content', urlParams.get('utm_content'));
