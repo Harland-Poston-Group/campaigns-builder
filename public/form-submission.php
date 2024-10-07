@@ -451,8 +451,6 @@ Mail::send([], [], function ($message) use ($data, $contactData) {
 
     $utm_source = $_POST['utm_source'] ?? null;
 
-
-
     if ($contactData['ans_brand'] === 119020001 ) {
         $contactData['ans_brand'] = 'Investment Visa';
     }
@@ -460,7 +458,7 @@ Mail::send([], [], function ($message) use ($data, $contactData) {
         $contactData['ans_brand'] = 'Portugal Homes';
     }
 
-    $message->to('enquiries@investmentvisa.com')
+    $message->to('enquiries@investmentvisa.com')->to('paulo.bernardes@portugalhomes.com')
     // $message->to('paulo.bernardes@portugalhomes.com')
         ->subject('New form submission for Investment Visa')
         ->html('<h2>Contact Data for Dynamics 365</h2>
@@ -476,3 +474,4 @@ Mail::send([], [], function ($message) use ($data, $contactData) {
 
 // Clean up the request handling
 $kernel->terminate($request, $response);
+
