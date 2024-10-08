@@ -137,14 +137,15 @@ $contactData = [
     "emailaddress1" => $data['email'],
     "telephone1" => $data['phone_number'],
     "ans_whatareyoulookingfortext"  => $data['enquiry_subject'],
-    // "ans_message" => $data['message'],
     "ans_brand" => 119020001,
-    //"campaignid" => $utm_campaign ?? null,
-    //"ans_leadsource" => $utm_source ?? null,
+    // "campaignid" => $utm_campaign ?? null,
+    // "ans_leadsource" => $utm_source ?? null,
     // "ans_googleadclickid" => 'google add test',
+    // "ans_ipcountrycode" => 'some ip country code',
+    // "ans_message" => $data['message'],
 ];
 /*
- * 119020001
+* 119020001
 echo '<pre>';
 print_r($contactData);
 echo '</pre>';
@@ -412,7 +413,7 @@ if( !isset($petname) && !empty($first_name) && !empty($last_name) && !empty($pho
                 $timestamp = date('d/m/Y H:i'); // Example: 03/10/2024 08:55
 
                 // Append the new message with a separator
-                $newMessage = "(Last updated: $timestamp) " . $data['message'];
+                $newMessage = "\n(Last updated: $timestamp)\n " . $data['message'];
                 //$combinedMessage = trim($existingMessage . ' ' . $newMessage);
 
                 $combinedMessage = trim($newMessage. ' ' . $existingMessage );
