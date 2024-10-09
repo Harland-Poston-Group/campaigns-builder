@@ -459,6 +459,8 @@ Mail::send([], [], function ($message) use ($data, $contactData) {
         $contactData['ans_brand'] = 'Portugal Homes';
     }
 
+    $referer = $_SERVER['HTTP_REFERER'];
+
     $message->to('enquiries@investmentvisa.com')
     //$message->to('paulo.bernardes@portugalhomes.com')
         ->subject('New form submission for Investment Visa')
@@ -466,6 +468,7 @@ Mail::send([], [], function ($message) use ($data, $contactData) {
                 <p><strong>First Name:</strong> ' . $contactData['firstname'] . '</p>
                 <p><strong>Last Name:</strong> ' . $contactData['lastname'] . '</p>
                 <p><strong>Email Address:</strong> ' . $contactData['emailaddress1'] . '</p>
+                <p><strong>Source:</strong> ' . $referer . '</p>
                 <p><strong>Phone Number:</strong> ' . $contactData['telephone1'] . '</p>
                 <p><strong>Enquiry Subject:</strong> ' . $contactData['ans_whatareyoulookingfortext'] . '</p>
                 <p><strong>Message:</strong> ' . $data['message'] . '</p>
